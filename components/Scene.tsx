@@ -39,7 +39,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   ) as GLTFResult;
   const { actions } = useAnimations<GLTFActions>(animations, group);
   return (
-    <group ref={group} {...props} dispose={null} scale={(0.01, 0.01, 0.01)}>
+    <group ref={group} {...props} dispose={null} scale={(0.5, 0.5, 0.008)}>
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group

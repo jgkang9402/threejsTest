@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
@@ -20,7 +21,12 @@ type GLTFResult = GLTF & {
 type ActionName = "Take 001";
 type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
-export function AnimaCat(props: JSX.IntrinsicElements["group"]) {
+export function AnimaCat(
+  props: JSX.IntrinsicElements["group"],
+  { scrollY }: any
+) {
+  // export function AnimaCat(props: JSX.IntrinsicElements["group"]) {
+  // const { rotationX } = props;
   const group = useRef<THREE.Group>();
   const { nodes, materials, animations } = useGLTF(
     "/animacat/scene.gltf"
@@ -40,18 +46,42 @@ export function AnimaCat(props: JSX.IntrinsicElements["group"]) {
     // actions["Take 001"].stop(); // "Take 001"은 실제 애니메이션의 이름으로 수정해야 합니다.
     setIsPlaying(false);
   };
+
+  const scrollDirection = useScrollDirection();
+
+  // useFrame((state, delta) => {
+  //   // console.log(state, delta);
+  //   // const t = (1 + Math.sin(state.clock.elapsedTime * 2)) / 2;
+  //   // stripe.current.color.setRGB(1 + t * 10, 2, 20 + t * 50);
+  //   // easing.dampE(
+  //   //   head.current.rotation,
+  //   //   [0, state.pointer.x * (state.camera.position.z > 1 ? 1 : -1), 0],
+  //   //   0.4,
+  //   //   delta
+  //   // );
+  //   // light.current.intensity = 1 + t * 2;
+  // });
   useEffect(() => {
+    console.log(group);
     console.log(actions);
     console.log(nodes);
     console.log(materials);
     console.log(animations);
+    console.log(scrollY);
 
     actions["Take 001"].play();
-    playAnimation();
+    // playAnimation();
   }, []);
 
   return (
-    <group ref={group} {...props} dispose={null} scale={[0.1, 0.1, 0.1]}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      scale={[0.1, 0.1, 0.1]}
+      rotation={[0, scrollDirection, scrollDirection + 0]}
+      // rotation={[0, scrollDirection, 0]}
+    >
       {/* 모델과 애니메이션 재생 및 정지 버튼 */}
       <group name="OSG_Scene">
         <group
@@ -119,3 +149,44 @@ export function AnimaCat(props: JSX.IntrinsicElements["group"]) {
 }
 
 useGLTF.preload("/animacat/scene.gltf");
+
+function useScrollDirection() {
+  const [scrollDirection, setScrollDirection] = useState(0);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY;
+
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (scrollDelta > 0) {
+            // 아래로 스크롤 중일 때, 0.1씩 증가
+            setScrollDirection((prevDirection) => prevDirection + 0.1);
+          } else if (scrollDelta < 0) {
+            // 위로 스크롤 중일 때, 0.1씩 감소
+            setScrollDirection((prevDirection) =>
+              Math.max(prevDirection - 0.1, 0)
+            );
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return scrollDirection;
+}
