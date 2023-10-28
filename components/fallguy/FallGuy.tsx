@@ -3,11 +3,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
+import { GLTF } from "three-stdlib";
+
+type GLTFResult = GLTF & {
+  nodes: {
+    ["body_meshShapeOrig"]: THREE.SkinnedMesh;
+    ["r_eye_meshShapeOrig"]: THREE.SkinnedMesh;
+    ["l_eye_meshShapeOrig"]: THREE.SkinnedMesh;
+  };
+};
 
 const FallGuy = () => {
   const [loadedGltf, setLoadedGltf] = useState(null);
   // const gltf = useGLTF("/duckTest.glb");
-  const gltf = useGLTF("/fallguy/fallguy.gltf");
+  const gltf = useGLTF("/fallguy/fallguy.gltf") as GLTFResult;
   const groupRef = useRef();
 
   // useFrame((state, delta) => {

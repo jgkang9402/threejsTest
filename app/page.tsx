@@ -1,6 +1,3 @@
-"use client";
-import CatWrapper from "@/components/cat/CatWrapper";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
