@@ -1,3 +1,5 @@
+"use client";
+
 // import { Camera, Canvas, useFrame, useLoader } from "@react-three/fiber";
 // // import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
