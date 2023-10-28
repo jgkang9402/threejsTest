@@ -6,12 +6,12 @@ import React, { useEffect, Suspense } from "react";
 import FallGuy from "./FallGuy";
 
 const FallGuyWrapper = () => {
-  const asd = useGLTF("/fallguy/fallguy.gltf") as any;
-  const bbb = useGLTF("/animacat/scene.gltf") as any;
-  useEffect(() => {
-    console.log("@@@", asd);
-    console.log("###", bbb);
-  }, [asd, bbb]);
+  // const asd = useGLTF("/fallguy/fallguy.gltf") as any;
+  // const bbb = useGLTF("/animacat/scene.gltf") as any;
+  // useEffect(() => {
+  //   console.log("@@@", asd);
+  //   console.log("###", bbb);
+  // }, [asd, bbb]);
   return (
     <div
       style={{
