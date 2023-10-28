@@ -1,11 +1,8 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import WolfMesh from "./WolfMesh";
 import { useEffect, useRef, useState } from "react";
-import { Model } from "./Scene";
-import { Cat } from "./Cat";
 import { AnimaCat } from "./AnimaCat";
-import { OrbitControls, PerspectiveCamera, Stars } from "@react-three/drei";
+import { OrbitControls, Stars } from "@react-three/drei";
 
 export default function CatWrapper() {
   const cameraRef = useRef<Camera>(null);
