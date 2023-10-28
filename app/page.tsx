@@ -1,21 +1,20 @@
 "use client";
-import CustomCanvas from "@/components/TestThree";
+import CatWrapper from "@/components/cat/CatWrapper";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
-      {/* <div style={{ height: "500vh" }}> */}
-      {/* <div style={{ backgroundColor: "#99f" }}> */}
-      <div>1231231</div>
-      {Array.from({ length: 100 }).map((_, idx) => {
-        return (
-          <div key={idx} style={{ margin: "1rem" }}>
-            {idx}
-          </div>
-        );
-      })}
-      <CustomCanvas />
+      <div style={{ marginBottom: "1rem" }}>
+        <Link href={"/cat"}>cat</Link>
+      </div>
+      <div style={{ marginBottom: "1rem" }}>
+        <Link href={"/fallguy"}>fallguy</Link>
+      </div>
+      <div style={{ marginBottom: "1rem" }}>
+        <Link href={"/person"}>person</Link>
+      </div>
     </div>
   );
 }

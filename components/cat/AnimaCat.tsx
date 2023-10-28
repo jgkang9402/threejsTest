@@ -65,7 +65,6 @@ export function AnimaCat(
     console.log(group);
     console.log(actions);
     console.log(nodes);
-    console.log(materials);
     console.log(animations);
     console.log(scrollY);
 

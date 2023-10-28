@@ -1,3 +1,4 @@
+"use client";
 import { Canvas } from "@react-three/fiber";
 import WolfMesh from "./WolfMesh";
 import { useEffect, useRef, useState } from "react";
@@ -6,7 +7,7 @@ import { Cat } from "./Cat";
 import { AnimaCat } from "./AnimaCat";
 import { OrbitControls, PerspectiveCamera, Stars } from "@react-three/drei";
 
-export default function CustomCanvas() {
+export default function CatWrapper() {
   const cameraRef = useRef<Camera>(null);
 
   const [scrollY, setScrollY] = useState([0, 5, 0]);
@@ -88,7 +89,6 @@ export default function CustomCanvas() {
           makeDefault={true}
           enableZoom={false}
         />
-        {/* <AnimaCat /> */}
         <AnimaCat scrollY={scrollY} />
       </Canvas>
     </div>
