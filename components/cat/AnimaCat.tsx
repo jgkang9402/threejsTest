@@ -19,19 +19,19 @@ type GLTFResult = GLTF & {
 };
 
 type ActionName = "Take 001";
-type GLTFActions = Record<ActionName, THREE.AnimationAction>;
+type AnimaCatProps = JSX.IntrinsicElements["group"] & {
+  scrollY: number[];
+};
 
-export function AnimaCat(
-  props: JSX.IntrinsicElements["group"],
-  { scrollY }: any
-) {
-  // export function AnimaCat(props: JSX.IntrinsicElements["group"]) {
-  // const { rotationX } = props;
+// export function AnimaCat(props: JSX.IntrinsicElements["group"], { scrollY }) {
+export function AnimaCat(props: AnimaCatProps) {
+  const { scrollY, ...groupProps } = props;
+
   const group = useRef<THREE.Group>();
   const { nodes, materials, animations } = useGLTF(
     "/animacat/scene.gltf"
   ) as GLTFResult;
-  const { actions } = useAnimations<GLTFActions>(animations, group);
+  const { actions } = useAnimations(animations, group);
 
   const [isPlaying, setIsPlaying] = useState(true); // 애니메이션 상태를 관리하는 상태 변수
 
@@ -75,7 +75,7 @@ export function AnimaCat(
   return (
     <group
       ref={group}
-      {...props}
+      {...groupProps}
       dispose={null}
       scale={[0.1, 0.1, 0.1]}
       rotation={[0, scrollDirection, scrollDirection + 0]}

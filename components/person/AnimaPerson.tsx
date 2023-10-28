@@ -6,6 +6,7 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import { useControls } from "leva";
+import { Object3D } from "three";
 
 const AnimaPerson = () => {
   const model = useGLTF("/animaperson/animaperson.glb");
@@ -17,7 +18,7 @@ const AnimaPerson = () => {
     },
   });
 
-  const meshRef = useRef();
+  const meshRef = useRef<Object3D>();
 
   useEffect(() => {
     // 이벤트 바뀔때마다 동작하는거

@@ -5,7 +5,7 @@ import { AnimaCat } from "./AnimaCat";
 import { OrbitControls, Stars } from "@react-three/drei";
 
 export default function CatWrapper() {
-  const cameraRef = useRef<Camera>(null);
+  const cameraRef = useRef(null);
 
   const [scrollY, setScrollY] = useState([0, 5, 0]);
 
