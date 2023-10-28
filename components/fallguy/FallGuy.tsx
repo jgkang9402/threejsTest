@@ -7,16 +7,16 @@ import { useGLTF } from "@react-three/drei";
 const FallGuy = () => {
   const [loadedGltf, setLoadedGltf] = useState(null);
   // const gltf = useGLTF("/duckTest.glb");
-  const gltf = useGLTF("/fallguy/fallguy.gltf") as any;
+  const gltf = useGLTF("/fallguy/fallguy.gltf");
   const groupRef = useRef();
 
-  useFrame((state, delta) => {
-    // if (groupRef.current) {
-    if (groupRef.current) {
-      console.log(groupRef.current);
-      // groupRef.current.rotation.y += delta;
-    }
-  });
+  // useFrame((state, delta) => {
+  //   // if (groupRef.current) {
+  //   if (groupRef.current) {
+  //     console.log(groupRef.current);
+  //     // groupRef.current.rotation.y += delta;
+  //   }
+  // });
 
   useEffect(() => {
     // setTimeout(() => {

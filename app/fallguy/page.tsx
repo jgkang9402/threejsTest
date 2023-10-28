@@ -1,5 +1,3 @@
-"use client";
-
 import FallGuyWrapper from "@/components/fallguy/FallGuyWrapper";
 import Link from "next/link";
 import React from "react";
