@@ -1,5 +1,62 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+
+const FallGuy = () => {
+  const [loadedGltf, setLoadedGltf] = useState(null);
+  // const gltf = useGLTF("/duckTest.glb");
+  const gltf = useGLTF("/fallguy/fallguy.gltf") as any;
+  const groupRef = useRef();
+
+  useFrame((state, delta) => {
+    // if (groupRef.current) {
+    if (groupRef.current) {
+      console.log(groupRef.current);
+      // groupRef.current.rotation.y += delta;
+    }
+  });
+
+  useEffect(() => {
+    // setTimeout(() => {
+    // }, 5000);
+
+    if (gltf.scene) {
+      setLoadedGltf(gltf);
+      gltf.scene.traverse((child: any) => {
+        if (child.isMesh) {
+          child.material.color.set("pink");
+        }
+      });
+    }
+  }, [gltf]);
+
+  if (!loadedGltf) return null;
+
+  return (
+    <>
+      <group
+        ref={groupRef}
+        position={[2, -2, -2]}
+        rotation={[0, (45 * Math.PI) / 180, (45 * Math.PI) / 180]}
+        scale={[1.5, 1, 1]}
+      >
+        <mesh>
+          <primitive object={loadedGltf.scene} scale={0.2} />
+          <axesHelper scale={5} />
+          <mesh position-y={2.5}>
+            <sphereGeometry />
+            <meshStandardMaterial color={"aqua"} />
+          </mesh>
+        </mesh>
+      </group>
+    </>
+  );
+};
+
+export default FallGuy;
+
 // import { Camera, Canvas, useFrame, useLoader } from "@react-three/fiber";
 // // import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -51,58 +108,3 @@
 // };
 
 // export default FallGuy;
-
-import React, { useEffect, useRef, useState } from "react";
-import { useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
-
-type Props = {};
-
-const FallGuy: React.FC<Props> = (props) => {
-  const [loadedGltf, setLoadedGltf] = useState(null);
-  // const gltf = useGLTF("/duckTest.glb");
-  const gltf = useGLTF("/fallguy/fallguy.gltf");
-  const groupRef = useRef<THREE.Group>();
-
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta;
-    }
-  });
-
-  useEffect(() => {
-    // setTimeout(() => {
-    setLoadedGltf(gltf);
-    // }, 5000);
-
-    if (gltf.scene) {
-      gltf.scene.traverse((child: any) => {
-        if (child.isMesh) {
-          child.material.color.set("pink");
-        }
-      });
-    }
-  }, [gltf]);
-
-  if (!loadedGltf) return null;
-
-  return (
-    <group
-      ref={groupRef}
-      position={[2, -2, -2]}
-      rotation={[0, (45 * Math.PI) / 180, (45 * Math.PI) / 180]}
-      scale={[1.5, 1, 1]}
-    >
-      <mesh>
-        <primitive object={loadedGltf.scene} scale={0.2} />
-        <axesHelper scale={5} />
-        <mesh position-y={2.5}>
-          <sphereGeometry />
-          <meshStandardMaterial color={"aqua"} />
-        </mesh>
-      </mesh>
-    </group>
-  );
-};
-
-export default FallGuy;
